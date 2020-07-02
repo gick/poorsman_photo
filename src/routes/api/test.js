@@ -16,7 +16,7 @@ const testData = [
   },
   {
     id: 4,
-    body: 'Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+    body: ' sunt in culpa qui officia deserunt mollit anim id est laborum.',
   }
 ]
 
