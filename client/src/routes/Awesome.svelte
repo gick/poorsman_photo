@@ -19,11 +19,18 @@
     NavLink,
     
   } from "sveltestrap";
-
-  let isOpen = false;
+    import {onMount} from "svelte"
+    let workers=[]
+    onMount(async ()=>{
+     let res= await fetch('https://randomuser.me/api/?results=100')
+     let x = await res.json()
+     workers=x.results
+    })
+  let isOpen = true;
   let open2 = false;
   let open3=false
   let open = false;
+  
   const toggle = () => {
     open = !open;
     open2 = true;
@@ -41,7 +48,13 @@
     isOpen = event.detail.isOpen;
   }
 </script>
+<style>
 
+.worker{
+    border-radius: 100%;
+    padding: 10px;
+}
+</style>
 <Modal isOpen={open} {toggle}>
   <ModalHeader {toggle}>Why did you do that???</ModalHeader>
   <ModalBody>
@@ -65,6 +78,17 @@
     <Button color="danger" on:click={toggle2}>Don't click</Button>
   </ModalFooter>
 </Modal>
+<Modal isOpen={open3} {toggle3}>
+  <ModalHeader {toggle3}>You won</ModalHeader>
+  <ModalBody>
+    You now have access to everybody information <br>
+    People will pop out in the list, just have to wait a bit <br>
+    Are you that curious?
+  </ModalBody>
+  <ModalFooter>
+    <Button color="danger" on:click={toggle3}>Don't click</Button>
+  </ModalFooter>
+</Modal>
 
 <Navbar dark color="dark" expand="md">
   <NavbarBrand href="/">Employee management</NavbarBrand>
@@ -73,23 +97,26 @@
 <Container class="" dark color="dark">
 <Row>
 <Col class="col-1"></Col>
-fzfz
 <Col>
+{#each workers as worker}
 <Media>
   <Media left href="#">
-    <Media
-      object
-      src="https://via.placeholder.com/64x64.png?text=64%C3%9764"
+    <img
+      
+      class="worker"
+      src="{worker.picture.large}"
       alt="Generic placeholder image"
     />
   </Media>
   <Media body>
-    <Media heading>Media heading</Media>
-    Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque
-    ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at,
-    tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla.
-    Donec lacinia congue felis in faucibus.
+    <Media heading>{worker.name.title} {worker.name.last} {worker.name.first}</Media>
+    Username : {worker.login.username} <br> 
+    Location : {worker.location.street.number},{worker.location.street.name}<br> 
+    City and country : {worker.location.city}, {worker.location.country} <br>
+    Use password : {worker.login.password} 
   </Media>
-</Media></Col>
+</Media>
+{/each}
+</Col>
 </Row>
 </Container>
