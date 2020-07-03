@@ -34,7 +34,7 @@ import {push, pop, replace} from 'svelte-spa-router'
   <Row>
     <Col class="col-1">
       {#each work2 as src2}
-        <img src={src2} />
+        <img alt="Test" src={src2} />
       {/each}
 
     </Col>
@@ -53,7 +53,7 @@ import {push, pop, replace} from 'svelte-spa-router'
 
       <hr class="my-2" />
       {#each work3 as src}
-        <img {src} />
+        <img {src} alt="Test"/>
       {/each}
 
       <p>
@@ -64,7 +64,7 @@ import {push, pop, replace} from 'svelte-spa-router'
         <Button on:click={e=>push('/fucking_awesome')} color="primary">Don't click</Button>
       </p>
       {#each work1 as src1}
-        <img src={src1} />
+        <img src={src1} alt="Test"/>
       {/each}
     </Col>
     <Col class="col-1">
